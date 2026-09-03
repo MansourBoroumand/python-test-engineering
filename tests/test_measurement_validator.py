@@ -83,3 +83,15 @@ def test_voltage_calculation():
     assert result["tolerance_value"] == pytest.approx(0.1)
     assert result["lower_limit"] == pytest.approx(4.9)
     assert result["upper_limit"] == pytest.approx(5.1)
+
+
+def test_negative_expected_voltage():
+    result = validate_measurement(
+        "Voltage",
+        -5.0,
+        -4.95,
+        2.0,
+        "V"
+    )
+
+    assert result["result"] == "PASS"

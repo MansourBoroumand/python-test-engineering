@@ -10,7 +10,7 @@ def validate_measurement(
     tolerance_percent,
     unit
 ):
-    tolerance_value = expected_value * tolerance_percent / 100
+    tolerance_value = abs(expected_value) * tolerance_percent / 100
 
     lower_limit = expected_value - tolerance_value
     upper_limit = expected_value + tolerance_value

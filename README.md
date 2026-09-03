@@ -161,6 +161,28 @@ Stores all measurement results in a timestamped CSV report.
 
 Controls the overall program workflow, including user input, measurement validation, reporting, and CSV file generation.
 
+## Automated Testing
+
+This project includes automated tests implemented with `pytest`.
+
+The test suite verifies the measurement validation logic under different conditions, including:
+
+- PASS and FAIL measurement scenarios
+- Voltage, current, and resistance measurements
+- Lower and upper boundary conditions
+- Values just outside the allowed tolerance range
+- Zero-tolerance measurements
+- Tolerance and limit calculations
+- Negative expected measurement values
+
+The tests also helped identify and fix an edge-case defect related to negative expected values.
+
+The test files are located in:
+
+```text
+tests/
+└── test_measurement_validator.py
+
 ## Requirements
 
 - Python 3.x
