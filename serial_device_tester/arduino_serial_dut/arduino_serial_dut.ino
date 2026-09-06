@@ -12,5 +12,11 @@ void loop() {
         if (command == "GET_STATUS") {
             Serial.println("STATUS:OK");
         }
+        else if (command == "GET_VERSION") {
+            Serial.println("VERSION:1.0");
+        }
+        else if (command == "Hi") {
+            Serial.println("Hallo");
+        }
     }
 }

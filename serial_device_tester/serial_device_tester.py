@@ -44,6 +44,10 @@ def send_command(connection, command):
 def read_response(connection):
     response = connection.readline()
 
+    if not response:
+        print("No response received (timeout).")
+        return None
+
     decoded_response = response.decode().strip()
 
     print(f"Response received: {decoded_response}")
@@ -66,6 +70,49 @@ def validate_response(
     return result
 
 
+def run_tests(connection, test_cases):
+    total_tests = 0
+    passed_tests = 0
+    failed_tests = 0
+    communication_failures = 0
+
+    for command, expected_response in test_cases:
+        print("\n------------------------------")
+
+        total_tests += 1
+
+        send_command(
+            connection,
+            command
+        )
+
+        response = read_response(
+            connection
+        )
+
+        if response is not None:
+            result = validate_response(
+                response,
+                expected_response
+            )
+
+            if result == "PASS":
+                passed_tests += 1
+            else:
+                failed_tests += 1
+
+        else:
+            print("Test result: COMMUNICATION FAILURE")
+            communication_failures += 1
+
+    print("\n========== TEST SUMMARY ==========")
+    print(f"Total tests:             {total_tests}")
+    print(f"Passed tests:            {passed_tests}")
+    print(f"Failed tests:            {failed_tests}")
+    print(f"Communication failures: {communication_failures}")
+
+
+
 if __name__ == "__main__":
     list_serial_ports()
 
@@ -78,20 +125,17 @@ if __name__ == "__main__":
         try:
             print("Ready for communication.")
 
-            send_command(
+            test_cases = [
+                ("GET_STATUS", "STATUS:OK"),
+                ("GET_VERSION", "VERSION:1.0"),
+                ("Hi", "Hallo"),
+            ]
+
+            run_tests(
                 connection,
-                "GET_STATUS"
-            )
-
-            response = read_response(
-                connection
-            )
-
-            validate_response(
-                response,
-                "STATUS:OK"
+                test_cases
             )
 
         finally:
             connection.close()
-            print("Serial port closed.")
+            print("\nSerial port closed.")
