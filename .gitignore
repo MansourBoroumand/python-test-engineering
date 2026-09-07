@@ -219,4 +219,5 @@ __marimo__/
 # PyCharm
 .idea/
 measurement_results_*.csv
+instrument_result_*.csv
 instrument_results_*.csv
