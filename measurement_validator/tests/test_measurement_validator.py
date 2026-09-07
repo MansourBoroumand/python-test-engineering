@@ -1,6 +1,6 @@
 import pytest
 
-from measurement_validator import validate_measurement
+from measurement_validator.measurement_validator import validate_measurement
 
 
 @pytest.mark.parametrize(
