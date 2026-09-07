@@ -1,0 +1,25 @@
+spec: "1.0"
+
+devices:
+  simulated_dmm:
+    eom:
+      ASRL INSTR:
+        q: "\r\n"
+        r: "\n"
+
+    dialogues:
+      - q: "*IDN?"
+        r: "SIMULATED,DMM,001,1.0"
+
+      - q: "MEAS:VOLT:DC?"
+        r: "5.012"
+
+      - q: "MEAS:CURR:DC?"
+        r: "0.102"
+
+      - q: "MEAS:RES?"
+        r: "998.5"
+
+resources:
+  ASRL1::INSTR:
+    device: simulated_dmm
